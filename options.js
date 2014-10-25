@@ -34,16 +34,15 @@ function add_class() {
 
 			var classificationTextField = document.createElement("input");
 			classificationTextField.setAttribute("type", "text");
-			classificationTextField.setAttribute("name", "classText" + classNumber);
+			classificationTextField.setAttribute("name", classNumber + "classText" + numWeights);
 			classificationTextField.setAttribute("value", "here" + classNumber);
 
 			var weightLabel = document.createElement("p");
 			weightLabel.appendChild(document.createTextNode("Weight as decimal"));
-			
 
 			var weightTextField = document.createElement("input");
 			weightTextField.setAttribute("type", "text");
-			weightTextField.setAttribute("name", "classWeight" + classNumber);
+			weightTextField.setAttribute("name", classNumber + "classWeight" + numWeights);
 			weightTextField.setAttribute("value", "weight " + classNumber);
 
 			const location = document.getElementById("div" + classNumber);
