@@ -1,5 +1,5 @@
 
-n save_options() {
+save_options() {
   var color = document.getElementById('color').value;
   var likesColor = document.getElementById('like').checked;
   chrome.storage.sync.set({
@@ -30,3 +30,17 @@ function restore_options() {
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click',
     save_options);
+
+
+add_class()) { 
+  var para = document.createElement("p");
+  var node = document.createTextNode("New para");
+  para.appendChild(node);
+  var element = document.getElementById("class_area");
+  element.appendChild(para);
+}
+
+
+document.getElementById('add_class").addEventListener('click', add_class);
+
+
