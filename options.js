@@ -50,7 +50,16 @@ function add_class() {
 		document.getElementById("add_weight" + classNumber).onclick = function() { 
 			var classificationLabel = document.createElement("p");
 			classificationLabel.appendChild(document.createTextNode("Classification: "));
-			document.getElementById("div" + classNumber).appendChild(classificationLabel);
+
+			var classificationTextField = document.createElement("input");
+			classificationTextField.setAttribute("type", "text");
+			classificationTextField.setAttribute("name", "classText" + counter);
+			classificationTextField.setAttribute("value", "here" + classNumber);
+
+			const location = document.getElementById("div" + classNumber);
+
+			location.appendChild(classificationLabel);
+			location.appendChild(classificationTextField);
 		};
 		counter++;
 	}
