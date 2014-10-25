@@ -31,15 +31,30 @@ var counter = 1;
 
 function add_class() { 
 	if(counter <= 8) { 
+		const classNumber = counter;
 		var header = document.createElement("h1");
-		var headerText = document.createTextNode("Period " + counter);
-		header.appendChild(headerText);
-		document.getElementById("class_div").appendChild(header);
+		header.setAttribute("name", "header" + classNumber);
+		header.appendChild(document.createTextNode("Period " + classNumber));		
+		document.getElementById("class_div").appendChild(header);		
+		
+		var div = document.createElement("div");
+		div.id = "div" + classNumber;
+		document.getElementById("class_div").appendChild(div);
+
+		var addWeightButton = document.createElement("input");
+		addWeightButton.setAttribute("type", "button");
+		addWeightButton.setAttribute("value", "Add weight");
+		addWeightButton.id="add_weight" + classNumber;
+		document.getElementById("class_div").appendChild(addWeightButton);
+		
+		document.getElementById("add_weight" + classNumber).onclick = function() { 
+			var classificationLabel = document.createElement("p");
+			classificationLabel.appendChild(document.createTextNode("Classification: "));
+			document.getElementById("div" + classNumber).appendChild(classificationLabel);
+		};
 		counter++;
 	}
 }	
-
-
 
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click',
