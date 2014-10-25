@@ -26,6 +26,8 @@ function add_class() {
 		addWeightButton.id="add_weight" + classNumber;
 		document.getElementById("class_div").appendChild(addWeightButton);
 		
+		var numWeights = 0;
+	
 		document.getElementById("add_weight" + classNumber).onclick = function() { 
 			var classificationLabel = document.createElement("p");
 			classificationLabel.appendChild(document.createTextNode("Assignment Type"));
@@ -49,6 +51,8 @@ function add_class() {
 			location.appendChild(classificationTextField);
 			location.appendChild(weightLabel);
 			location.appendChild(weightTextField);
+			
+			numWeights++;
 		};
 		counter++;
 	}
