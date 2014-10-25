@@ -1,4 +1,3 @@
-
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function save_options() {
@@ -28,7 +27,17 @@ function restore_options() {
   	});
 }
 
+var counter = 1;
 
+function add_class() { 
+	if(counter <= 8) { 
+		var header = document.createElement("h1");
+		var headerText = document.createTextNode("Period " + counter);
+		header.appendChild(headerText);
+		document.getElementById("class_div").appendChild(header);
+		counter++;
+	}
+}	
 
 
 
