@@ -30,12 +30,13 @@ function restore_options() {
 
 
 function add_class() { 
+  var add_weightButton = document.createElement("input");
+  add_weightButton.setAttribute("button", "button");
+  add_weightButton.setAttribute("Hi", button);
+  add_weightButton.onClick = function() { 
   var para = document.createElement("p");
-  var node = document.createTextNode("Para node");
-  para.appendChild(node);
+  var node = document.createTextNode("Paragraph paragraph");
   var element = document.getElementById('class_id');
-  element.appendChild(para);
-
 }
 
 document.addEventListener('DOMContentLoaded', restore_options);
