@@ -1,30 +1,9 @@
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function save_options() {
-	var color = document.getElementById('color').value;
-	var likesColor = document.getElementById('like').checked;
-	chrome.storage.sync.set({
-		favoriteColor: color,
-		likesColor: likesColor
- 	 }, function() {
-    		// Update status to let user know options were saved.
-    		var status = document.getElementById('status');
-		status.textContent = 'Options saved.';
-    		setTimeout(function() {
-     		 status.textContent = '';
-    		}, 750);
-  	});
 }
 
 function restore_options() {
-	// Use default value color = 'red' and likesColor = true.
-	chrome.storage.sync.get({
-	favoriteColor: 'red',
-	likesColor: true
-	}, function(items) {
-   		document.getElementById('color').value = items.favoriteColor;
- 		document.getElementById('like').checked = items.likesColor;
-  	});
 }
 
 var counter = 1;
@@ -49,17 +28,27 @@ function add_class() {
 		
 		document.getElementById("add_weight" + classNumber).onclick = function() { 
 			var classificationLabel = document.createElement("p");
-			classificationLabel.appendChild(document.createTextNode("Classification: "));
+			classificationLabel.appendChild(document.createTextNode("Assignment Type"));
 
 			var classificationTextField = document.createElement("input");
 			classificationTextField.setAttribute("type", "text");
-			classificationTextField.setAttribute("name", "classText" + counter);
+			classificationTextField.setAttribute("name", "classText" + classNumber);
 			classificationTextField.setAttribute("value", "here" + classNumber);
 
-			const location = document.getElementById("div" + classNumber);
+			var weightLabel = document.createElement("p");
+			weightLabel.appendChild(document.createTextNode("Weight as decimal"));
+			
 
+			var weightTextField = document.createElement("input");
+			weightTextField.setAttribute("type", "text");
+			weightTextField.setAttribute("name", "classWeight" + classNumber);
+			weightTextField.setAttribute("value", "weight " + classNumber);
+
+			const location = document.getElementById("div" + classNumber);
 			location.appendChild(classificationLabel);
 			location.appendChild(classificationTextField);
+			location.appendChild(weightLabel);
+			location.appendChild(weightTextField);
 		};
 		counter++;
 	}
