@@ -63,27 +63,16 @@ function add_class() {
 
 
 function save_options() {
-	var allElements = document.getElementsByTagName("div");
-	var allIds = [];
-	for (var i = 0, n = allElements.length; i < n; ++i) {
-  		var el = allElements[i];
-  		if (el.id) { 
-			allIds.push(el.id); 
-			var searchStuff = document.getElementById(allElements[i].id).children;
-			for(i = 0; i < searchStuff.length; i++) { 
-				allIds.push(searchStuff[i].value);
-			}
+	var text = "";
+	var elements = document.getElementsByTagName('input')
+	for(var i = 0; i < elements.length; i++) {
+		if(elements[i].type == "text") { 
+			var input = elements[i];
+			var id = elements[i].name;
+			text += input.value + id + " VALUE" + elements[i].id;
 		}
 	}
-alert("HERE" + allIds);
-var text = "";
-var elements = document.getElementsByTagName('input')
-  for(var i=0; i<elements.length; i++) {
-    var input = elements[i];
-    text += input.value + " VALUE";
-    //alert(input.value + " VALUE");
-  }
-alert(text);
+	alert(text);
 }
 
 document.getElementById('save').addEventListener('click',
