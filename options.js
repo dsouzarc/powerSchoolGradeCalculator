@@ -64,7 +64,12 @@ function add_class() {
 
 function save_options() {
 	var text = "";
-	var elements = document.getElementsByTagName('input')
+	var elements = document.getElementsByTagName('input');
+
+	var tempWeights = [];
+	var tempIDs = [];
+	var tempClassNum = 1;
+
 	for(var i = 0; i < elements.length; i++) {
 		if(elements[i].type == "text") { 
 			var input = elements[i];
