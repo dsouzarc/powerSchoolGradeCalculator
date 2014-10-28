@@ -67,9 +67,9 @@ function save_options() {
 	var elements = document.getElementsByTagName('input');
 	var tempWeights = [];
 	var tempIDs = [];
-    var allItems = [[]];
+    var allWeights = [[]];
+    var allIDs = [[]];
 	var tempClassNum = 1;
-
     var allClasses = [];
 	for(var i = 0; i < elements.length; i++) {
 		if(elements[i].type == "text") { 
@@ -80,37 +80,33 @@ function save_options() {
                     tempWeights.push(input.value);
                 }
                 else if(id.indexOf("classText") > -1) { 
-                    console.log("RIGHT HERE");
                     tempIDs.push(input.value);
                 }
             }
             else {
 			    var input = elements[i];
 			    var id = elements[i].name;
-                console.log("Here we go");
                 var obj = { 
                     "classWeight" : tempWeights,
-                    "classText" : tempIDs }
+                    "classText" : tempIDs };
                 console.log("We good");
                 allClasses.push(obj);
-                tempIDs = id.charAt(0);
+                tempClassNum = id.charAt(0);
                 if(id.indexOf("classWeight") > -1) { 
                     tempWeights.push(input.value);
                 }
                 else if(id.indexOf("classText") > -1) { 
-                    console.log("Attempting");
                     tempIDs.push("Ryan D'souza"); //input.value);
-                    console.log(input.value);
                 }
              }
 		}
     }
-    allItems.push(tempWeights);
-    allItems.push(tempIDs);
+    allWeights.push(tempWeights);
+    allIDs.push(tempIDs);
     console.log("HERE");
-    console.log(allItems);
-    for(var i = 0; i < allItems.lenght; i++) { 
-        var vals = allItems[i];
+    console.log(allWeights);
+    for(var i = 0; i < allWeights.length; i++) { 
+        var vals = allWeights[i];
         console.log("DOWN");
         for(var  y = 0; y < vals.length; y++) { 
             console.log(vals[y]);
