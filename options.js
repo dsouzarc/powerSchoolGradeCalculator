@@ -6,25 +6,13 @@ function restore_options() {
     try { 
         var allWeights = [];
         var allIDs = [];
-
-        chrome.storage.sync.get('allWeights', function(obj) { 
-            allWeights = obj.allWeights();
-
-            chrome.storage.sync.get('allIDs', function(obj2) { 
-                allIDs = obj2.allIDs();
-                alert("ALL WEIGHTS: " + allWeights);
-                alert("ALL IDS: " + allIDs);
-            });
-        });
-
-        /*chrome.storage.sync.get('all', function(obj) { 
-            obj = obj.all();
-            allWeights = obj.allWeights();
-            allIDs = obj.allIDs();
-            console.log("WEIGHTS: " + allWeights);
-            console.log("IDS: " + allIDs);
-            });*/
-    }
+       chrome.storage.sync.get(null, function(items) {
+           allWeights = items.allWeights;
+           allIDs = items.allIDs;
+           alert("ALL WEIGHTS: " + allWeights);
+           alert("ALL IDS: " + allIDs);
+       });
+    }   
     catch(err) { 
         console.log("Err: " + err);
     }
