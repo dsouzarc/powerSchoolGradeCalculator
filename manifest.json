@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-
+    "permissions": [ "storage" ],
     "name": "PowerSchool Percentage Calculator",
     "description": "Calculates the percentage grade",
     "version": "1.0",
@@ -8,8 +8,5 @@
     "browser_action": {
         "default_icon": "icon.png",
         "default_popup": "popup.html"
-    },
-    "permissions": [
-        "storage"
-    ]
+    }
 }

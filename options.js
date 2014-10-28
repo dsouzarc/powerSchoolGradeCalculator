@@ -118,7 +118,9 @@ function save_options() {
     console.log("ALL IDS: ");
     console.log(allIDs);
 
-    chrome.storage.local.setItem("allWeights1", JSON.stringify(allWeights));
+    chrome.storage.sync.set({'allWeights1' : allWeights}, function() { 
+        alert("Saved");
+    });
 }
 
 document.getElementById('save').addEventListener('click', save_options);
