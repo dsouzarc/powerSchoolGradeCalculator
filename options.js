@@ -7,13 +7,23 @@ function restore_options() {
         var allWeights = [];
         var allIDs = [];
 
-        chrome.storage.sync.get('all', function(obj) { 
+        chrome.storage.sync.get('allWeights', function(obj) { 
+            allWeights = obj.allWeights();
+
+            chrome.storage.sync.get('allIDs', function(obj2) { 
+                allIDs = obj2.allIDs();
+                alert("ALL WEIGHTS: " + allWeights);
+                alert("ALL IDS: " + allIDs);
+            });
+        });
+
+        /*chrome.storage.sync.get('all', function(obj) { 
             obj = obj.all();
             allWeights = obj.allWeights();
             allIDs = obj.allIDs();
             console.log("WEIGHTS: " + allWeights);
             console.log("IDS: " + allIDs);
-        });
+            });*/
     }
     catch(err) { 
         console.log("Err: " + err);
@@ -127,7 +137,8 @@ function save_options() {
     console.log(allIDs);
 
     var vals = {'allWeights' : allWeights, 'allIDs' : allIDs};
-
+    chrome.storage.sync.set({'allIDs' :  allIDs});
+    chrome.storage.sync.set({'allWeights' :  allWeights});
     chrome.storage.sync.set({'all' : vals});
 }
 
