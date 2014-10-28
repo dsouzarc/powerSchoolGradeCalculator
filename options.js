@@ -11,7 +11,6 @@ function add_class() {
 	if(counter <= 8) { 
 		const classNumber = counter;
 		var numWeights = 0;
-		
 		var header = document.createElement("h1");
 		header.setAttribute("name", "header" + classNumber);
 		header.appendChild(document.createTextNode("Period " + classNumber));		
@@ -26,7 +25,6 @@ function add_class() {
 		addWeightButton.setAttribute("value", "Add weight");
 		addWeightButton.id="add_weight" + classNumber;
 		document.getElementById("class_div").appendChild(addWeightButton);
-		
 	
 		document.getElementById("add_weight" + classNumber).onclick = function() { 
 			if(numWeights >= 5) { 
@@ -48,6 +46,7 @@ function add_class() {
 			weightTextField.setAttribute("type", "text");
 			weightTextField.setAttribute("name", classNumber + "classWeight" + numWeights);
 			weightTextField.setAttribute("value", "weight " + classNumber);
+            console.log(weightTextField.name);
 
 			const location = document.getElementById("div" + classNumber);
 			location.appendChild(classificationLabel);
@@ -72,11 +71,14 @@ function save_options() {
 	var tempIDs = [];
 	var tempClassNum = 1;
 
+    var tt = "";
+
 	for(var i = 0; i < elements.length; i++) {
-        const input = elements[i];
-		const id = elements[i].name;
-		
+        var input = elements[i];
+		var id = elements[i].name;
+		tt += id;
         if(input.type == "text") {     
+            console.log(id.charAt(0) + " WHAT: " + id);
             if(tempClassNum == id.charAt(0)) {  
                 if(id.indexOf("classWeight") > -1) { 
                     tempWeights.push(input.value);
@@ -94,8 +96,8 @@ function save_options() {
                 allWeights.push(tempWeights);
                 allIDs.push(tempIDs);
 
-                allWeights = [];
-                allIDs = [];
+                tempWeights = [];
+                tempIDs = [];
                 tempClassNum = id.charAt(0);
 
                 if(id.indexOf("classWeight") > -1) { 
@@ -107,6 +109,7 @@ function save_options() {
              }
 		}
     }
+    alert(tt);
 
     allWeights.push(tempWeights);
     allIDs.push(tempIDs);
@@ -118,7 +121,5 @@ function save_options() {
     console.log(allIDs);
 }
 
-document.getElementById('save').addEventListener('click',
-    save_options);
-
+document.getElementById('save').addEventListener('click', save_options);
 document.getElementById('add_class').addEventListener('click', add_class);
