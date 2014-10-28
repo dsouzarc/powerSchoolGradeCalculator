@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', restore_options);
 
 var counter = 1;
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
 function restore_options() {
 }
 
@@ -46,7 +44,6 @@ function add_class() {
 			weightTextField.setAttribute("type", "text");
 			weightTextField.setAttribute("name", classNumber + "classWeight" + numWeights);
 			weightTextField.setAttribute("value", "weight " + classNumber);
-            console.log(weightTextField.name);
 
 			const location = document.getElementById("div" + classNumber);
 			location.appendChild(classificationLabel);
@@ -71,14 +68,10 @@ function save_options() {
 	var tempIDs = [];
 	var tempClassNum = 1;
 
-    var tt = "";
-
 	for(var i = 0; i < elements.length; i++) {
         var input = elements[i];
 		var id = elements[i].name;
-		tt += id;
         if(input.type == "text") {     
-            console.log(id.charAt(0) + " WHAT: " + id);
             if(tempClassNum == id.charAt(0)) {  
                 if(id.indexOf("classWeight") > -1) { 
                     tempWeights.push(input.value);
@@ -109,8 +102,6 @@ function save_options() {
              }
 		}
     }
-    alert(tt);
-
     allWeights.push(tempWeights);
     allIDs.push(tempIDs);
     
