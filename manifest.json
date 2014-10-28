@@ -1,15 +1,15 @@
 {
-  "manifest_version": 2,
+    "manifest_version": 2,
 
-  "name": "PowerSchool Percentage Calculator",
-  "description": "Calculates the percentage grade",
-  "version": "1.0",
-  "options_page": "options.html",
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
-  },
-  "permissions": [
-    "https://secure.flickr.com/"
-  ]
+    "name": "PowerSchool Percentage Calculator",
+    "description": "Calculates the percentage grade",
+    "version": "1.0",
+    "options_page": "options.html",
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "storage"
+    ]
 }

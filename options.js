@@ -3,6 +3,13 @@ document.addEventListener('DOMContentLoaded', restore_options);
 var counter = 1;
 
 function restore_options() {
+    try { 
+        var array = JSON.parse(chrome.storage.local.getItem("allWeights1"));
+        console.log(array);
+    }
+    catch(err) { 
+        console.log("Err: " + err);
+    }
 }
 
 function add_class() { 
@@ -110,6 +117,8 @@ function save_options() {
    
     console.log("ALL IDS: ");
     console.log(allIDs);
+
+    chrome.storage.local.setItem("allWeights1", JSON.stringify(allWeights));
 }
 
 document.getElementById('save').addEventListener('click', save_options);
