@@ -4,8 +4,16 @@ var counter = 1;
 
 function restore_options() {
     try { 
-        var array = JSON.parse(chrome.storage.local.getItem("allWeights1"));
-        console.log(array);
+        var allWeights = [];
+        var allIDs = [];
+
+        chrome.storage.sync.get('allWeights', function(obj) { 
+            console.log(obj);
+            allWeights = obj.allWeights;
+        });
+        chrome.storage.sync.get('allIDs', function(obj) { 
+            allIDs = obj;
+        });
     }
     catch(err) { 
         console.log("Err: " + err);
@@ -118,8 +126,11 @@ function save_options() {
     console.log("ALL IDS: ");
     console.log(allIDs);
 
-    chrome.storage.sync.set({'allWeights1' : allWeights}, function() { 
-        alert("Saved");
+    chrome.storage.sync.set({'allWeights' : allWeights}, function() { 
+        alert("Saved all weights");
+    });
+    chrome.storage.sync.set({'allIDs' : allIDs}, function() { 
+        alert("Saved all ids");
     });
 }
 
