@@ -63,18 +63,20 @@ function add_class() {
 
 
 function save_options() {
-	var text = "";
-	var elements = document.getElementsByTagName('input');
-	var tempWeights = [];
+	const elements = document.getElementsByTagName('input');
+    const allWeights = [];
+    const allIDs = [];
+    const allClasses = [];
+    
+    var tempWeights = [];
 	var tempIDs = [];
-    var allWeights = [[]];
-    var allIDs = [[]];
 	var tempClassNum = 1;
-    var allClasses = [];
+
 	for(var i = 0; i < elements.length; i++) {
-		if(elements[i].type == "text") { 
-			var input = elements[i];
-			var id = elements[i].name;
+        const input = elements[i];
+		const id = elements[i].name;
+		
+        if(input.type == "text") {     
             if(tempClassNum == id.charAt(0)) {  
                 if(id.indexOf("classWeight") > -1) { 
                     tempWeights.push(input.value);
@@ -83,36 +85,37 @@ function save_options() {
                     tempIDs.push(input.value);
                 }
             }
+            
             else {
-			    var input = elements[i];
-			    var id = elements[i].name;
                 var obj = { 
                     "classWeight" : tempWeights,
                     "classText" : tempIDs };
-                console.log("We good");
                 allClasses.push(obj);
+                allWeights.push(tempWeights);
+                allIDs.push(tempIDs);
+
+                allWeights = [];
+                allIDs = [];
                 tempClassNum = id.charAt(0);
+
                 if(id.indexOf("classWeight") > -1) { 
                     tempWeights.push(input.value);
                 }
                 else if(id.indexOf("classText") > -1) { 
-                    tempIDs.push("Ryan D'souza"); //input.value);
+                    tempIDs.push(input.value);
                 }
              }
 		}
     }
+
     allWeights.push(tempWeights);
     allIDs.push(tempIDs);
-    console.log("HERE");
+    
+    console.log("ALL WEIGHTS: ");
     console.log(allWeights);
-    for(var i = 0; i < allWeights.length; i++) { 
-        var vals = allWeights[i];
-        console.log("DOWN");
-        for(var  y = 0; y < vals.length; y++) { 
-            console.log(vals[y]);
-        }
-    }
-
+   
+    console.log("ALL IDS: ");
+    console.log(allIDs);
 }
 
 document.getElementById('save').addEventListener('click',
