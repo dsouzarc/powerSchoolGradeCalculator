@@ -13,11 +13,32 @@ function show_periods() {
             period.setAttribute("value", "Period " + (i + 1));
             period.setAttribute("id", "p" + i);
             period.onclick = function() { 
-                alert(allWeights[i]);
-                document.getElementById('demo').textContent = allWeights[i];
+                console.log("HERE: " + getText());
+                window.alert(getText());
+                chrome.tabs.getCurrent(function(tab) { 
+                    window.alert(index);
+                    console.log("WHAT: " + index);
+                });
             };
             document.getElementById("period_choices").appendChild(period);
-
         }
     });
+
+    var query = { active: true, currentWindow: true };
+    chrome.tabs.query(query, callback);
+}
+
+function callback(tabs) {
+      var currentTab = tabs[0].title;
+        console.log(currentTab);
+        var newPara = document.createElement('p');
+        newPara.textContent = currentTab;
+        document.getElementById("period_choices").appendChild(newPara);
+}
+
+function getText(){
+        return document.body.innerText
+}
+function getHTML(){
+        return document.body.outerHTML
 }

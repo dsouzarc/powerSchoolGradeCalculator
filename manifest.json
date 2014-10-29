@@ -1,9 +1,14 @@
 {
     "manifest_version": 2,
-    "permissions": [ "storage" ],
+    "permissions": [ "storage", "tabs", "<all_urls>", "http://*/*", 
+           "activeTab",  "https://*/*"],
     "name": "PowerSchool Percentage Calculator",
     "description": "Calculates the percentage grade",
     "version": "1.0",
+    "background" : {
+        "scripts" :["calculate.js"],
+        "persistent": false
+    },
     "options_page": "options.html",
     "browser_action": {
         "default_icon": "icon.png",
