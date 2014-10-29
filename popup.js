@@ -11,11 +11,13 @@ function show_periods() {
             var period = document.createElement("input");
             period.setAttribute("type", "button");
             period.setAttribute("value", "Period " + (i + 1));
+            period.setAttribute("id", "p" + i);
+            period.onclick = function() { 
+                alert(allWeights[i]);
+                document.getElementById('demo').textContent = allWeights[i];
+            };
             document.getElementById("period_choices").appendChild(period);
 
         }
     });
 }
-
-document.getElementById('do-count').onclick = new function() { 
-};
