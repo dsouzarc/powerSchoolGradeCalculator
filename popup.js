@@ -32,7 +32,7 @@ function callback(tabs) {
       var currentTab = tabs[0].title;
         console.log(currentTab);
         var newPara = document.createElement('p');
-        newPara.textContent = currentTab;
+        newPara.textContent = currentTab + " + " + getText() + " END";
         document.getElementById("period_choices").appendChild(newPara);
 }
 
