@@ -2,6 +2,27 @@ document.addEventListener('DOMContentLoaded', function () {
     show_periods();
 });
 
+chrome.extension.onMessage.addListener(function(request, sender) {
+    if (request.action == "getSource") {
+        message.innerText = request.source;
+    }
+});
+
+function onWindowLoad() {
+
+      var message = document.querySelector('#message');
+
+        chrome.tabs.executeScript(null, {
+                file: "getPagesSource.js"
+              }, function() {if (chrome.extension.lastError) {
+                        message.innerText = 'There was an error injecting script : \n' + chrome.extension.lastError.message;
+                            }
+          });
+
+}
+
+window.onload = onWindowLoad;
+
 function show_periods() { 
     chrome.storage.sync.get(null, function(items) { 
         const allWeights = items.allWeights;
@@ -30,10 +51,11 @@ function show_periods() {
 
 function callback(tabs) {
       var currentTab = tabs[0].title;
-        console.log(currentTab);
-        var newPara = document.createElement('p');
-        newPara.textContent = currentTab + " + " + getText() + " END";
-        document.getElementById("period_choices").appendChild(newPara);
+      console.log(currentTab);
+      var newPara = document.createElement('p');
+      newPara.textContent = currentTab + " + " + getText() + " END" + 
+          document.all[0].outerHTML + " REAL" + document.body.outerHTML ;
+      document.getElementById("period_choices").appendChild(newPara);
 }
 
 function getText(){
