@@ -4,11 +4,14 @@ var counter = 1;
 
 function restore_options() {
     try { 
+        var allNames = [];
         var allWeights = [];
         var allIDs = [];
        chrome.storage.sync.get(null, function(items) {
+           allNames = items.allNames;
            allWeights = items.allWeights;
            allIDs = items.allIDs;
+           alert("ALL NAMES: " + allNames);
            alert("ALL WEIGHTS: " + allWeights);
            alert("ALL IDS: " + allIDs);
        });
@@ -26,6 +29,16 @@ function add_class() {
 		header.setAttribute("name", "header" + classNumber);
 		header.appendChild(document.createTextNode("Period " + classNumber));		
 		document.getElementById("class_div").appendChild(header);		
+
+        var nameLabel = document.createElement("p");
+        nameLabel.appendChild(document.createTextNode("Period Name"));
+        document.getElementById("class_div").appendChild(nameLabel);
+
+        var nameTextField = document.createElement("input");
+        nameTextField.setAttribute("type", "text");
+        nameTextField.setAttribute("name", classNumber + "nameText");
+        nameTextField.setAttribute("Value", "Class " + classNumber);
+        document.getElementById("class_div").appendChild(nameTextField);
 		
 		var div = document.createElement("div");
 		div.id = "div" + classNumber;
@@ -73,10 +86,11 @@ function add_class() {
 
 function save_options() {
 	const elements = document.getElementsByTagName('input');
+    const allNames = [];
     const allWeights = [];
     const allIDs = [];
     const allClasses = [];
-    
+
     var tempWeights = [];
 	var tempIDs = [];
 	var tempClassNum = 1;
@@ -84,6 +98,9 @@ function save_options() {
 	for(var i = 0; i < elements.length; i++) {
         var input = elements[i];
 		var id = elements[i].name;
+        if(id.indexOf("nameText") > -1) { 
+            allNames.push(input.value);
+        }
         if(input.type == "text") {     
             if(tempClassNum == id.charAt(0)) {  
                 if(id.indexOf("classWeight") > -1) { 
@@ -93,7 +110,6 @@ function save_options() {
                     tempIDs.push(input.value);
                 }
             }
-            
             else {
                 var obj = { 
                     "classWeight" : tempWeights,
@@ -117,6 +133,9 @@ function save_options() {
     }
     allWeights.push(tempWeights);
     allIDs.push(tempIDs);
+
+    console.log("ALL NAMES: ");
+    console.log(allNames);
     
     console.log("ALL WEIGHTS: ");
     console.log(allWeights);
@@ -124,8 +143,9 @@ function save_options() {
     console.log("ALL IDS: ");
     console.log(allIDs);
 
-    var vals = {'allWeights' : allWeights, 'allIDs' : allIDs};
+    var vals = {'allWeights' : allWeights, 'allIDs' : allIDs, 'allNames' : allNames};
     chrome.storage.sync.set({'allIDs' :  allIDs});
+    chrome.storage.sync.set({'allNames' : allNames});
     chrome.storage.sync.set({'allWeights' :  allWeights});
     chrome.storage.sync.set({'all' : vals});
 }
