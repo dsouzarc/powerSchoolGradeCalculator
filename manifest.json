@@ -1,14 +1,20 @@
 {
     "manifest_version": 2,
-    "permissions": [ "storage", "tabs", "<all_urls>", "http://*/*", 
-           "activeTab",  "https://*/*"],
+    "permissions": [ "storage", "tabs","webNavigation", "<all_urls>", "http://*/*", 
+           "activeTab",  "https://*/*", "http://www.google.co.in/"],
     "name": "PowerSchool Percentage Calculator",
     "description": "Calculates the percentage grade",
     "version": "1.0",
     "background" : {
-        "scripts" :["calculate.js"],
+        "scripts" :["background.js"],
         "persistent": false
     },
+    "content_scripts": [
+        {
+            "matches": ["http://www.google.co.in/", "https://pschool.princetonk12.org/*"],
+            "js": ["content_scripts.js"]
+        }
+    ], 
     "options_page": "options.html",
     "browser_action": {
         "default_icon": "icon.png",
