@@ -5,13 +5,9 @@
     "name": "PowerSchool Percentage Calculator",
     "description": "Calculates the percentage grade",
     "version": "1.0",
-    "background" : {
-        "scripts" :["background.js"],
-        "persistent": false
-    },
     "content_scripts": [
         {
-            "matches": ["http://www.google.co.in/", "https://pschool.princetonk12.org/*"],
+            "matches": ["https://pschool.princetonk12.org/*"],
             "js": ["content_scripts.js"]
         }
     ], 

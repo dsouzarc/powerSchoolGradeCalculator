@@ -4,8 +4,8 @@ function getText(){
 function getHTML(){
         return document.body.outerHTML
 }
-console.log(getText());             //Gives you all the text on the page
-console.log(getHTML());             //Gives you the whole HTML of the page
+console.log("TEXT: " + getText());             //Gives you all the text on the page
+console.log("HTML: " + getHTML());             //Gives you the whole HTML of the page
 
 
 window.onpopstate = function (event) {
