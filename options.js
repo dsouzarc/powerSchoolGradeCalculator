@@ -3,22 +3,17 @@ document.addEventListener('DOMContentLoaded', restore_options);
 var counter = 1;
 
 function restore_options() {
-    try { 
-        var allNames = [];
-        var allWeights = [];
-        var allIDs = [];
-       chrome.storage.sync.get(null, function(items) {
-           allNames = items.allNames;
-           allWeights = items.allWeights;
-           allIDs = items.allIDs;
-           alert("ALL NAMES: " + allNames);
-           alert("ALL WEIGHTS: " + allWeights);
-           alert("ALL IDS: " + allIDs);
-       });
-    }   
-    catch(err) { 
-        console.log("Err: " + err);
-    }
+    var allNames = [];
+    var allWeights = [];
+    var allIDs = [];
+    chrome.storage.sync.get(null, function(items) {
+    allNames = items.allNames;
+    allWeights = items.allWeights;
+    allIDs = items.allIDs;
+    alert("ALL NAMES: " + allNames);
+    alert("ALL WEIGHTS: " + allWeights);
+    alert("ALL IDS: " + allIDs);
+    });
 }
 
 function add_class() { 
