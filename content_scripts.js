@@ -1,5 +1,8 @@
+function toType(obj) {
+      return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+}
 function getText(){
-        return document.body.innerText
+        return "getText()"; //document.body.innerText
 }
 function getHTML(){
     var grades = document.getElementsByTagName("th");
@@ -9,13 +12,25 @@ function getHTML(){
             var parent2 = grades[i].parentNode.parentNode.parentNode;
 
             for(var j = 0; j < parent2.childNodes.length; j++) {
-                console.log(parent2.childNodes[j] + " HERE");
-                console.log(parent2.childNodes[j].tagName + " THERE");
                 if(parent2.childNodes[j].nodeType !=  3) { 
                     if (parent2.childNodes[j].tagName.toUpperCase() === "TBODY") { 
                         var tbody = parent2.childNodes[j];
                         for(var k = 0; k < tbody.childNodes.length; k++) { 
-                            console.log(tbody.childNodes[k].innerHTML);
+                           // console.log(k + " WW " + tbody.childNodes[k].innerHTML);
+                            try { 
+                                var tbody2 = tbody.childNodes[k].getElementsByTagName("td");
+                                console.log(tbody2.length + " YOLO");
+                                console.log(k + " objs: " + toType(tbody2));
+
+                                var arr = Array.prototype.slice.call(tbody2);
+                                console.log("ELGN:" + arr.length);
+                                for(var z = 0; z < arr.length; z++) { 
+                                    console.log(z + " Z " + arr[z] + " END: " + arr.length + arr[z].innerHTML);
+                                }
+                            }
+                            catch(err) { 
+                                console.log(err + "err");
+                            }
                         }
                     }
 
@@ -25,7 +40,7 @@ function getHTML(){
         }
 
     }
-        return grades; //document.body.id;  //.outerHTML
+        return "fine"; //grades; //document.body.id;  //.outerHTML
 }
 console.log("HTML: " + getHTML());             //Gives you the whole HTML of the page
 
