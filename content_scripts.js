@@ -22,14 +22,17 @@ function getHTML() {
 }
 
 function analyzeGrades() {
-    var titles = document.getElementsByTagName("td");
-    for(var i = 0; i < titles.length; i++) { 
-        for(var y = 0; y < allNames.length; y++) { 
-            if(titles[i].innerHTML.indexOf(allNames[y]) != -1) { 
-                alert("FOUND");
-            }
+    var classNum = 0;
+    for(var y = 0; y < allNames.length; y++) { 
+        if(window.find(allNames[y])) { 
+            classNum = y;
         }
     }
+    
+    var useGrades = allWeights[classNum];
+    var useIDs = allIDs[classNum];
+
+    alert(useGrades + " " + useIDs);
 
     var grades = document.getElementsByTagName("th");
     for (var i = 0; i < grades.length; i++) {
