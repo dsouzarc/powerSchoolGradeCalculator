@@ -33,17 +33,11 @@ function analyzeGrades() {
     var useIDs = allIDs[classNum];
     var isStraightAverage = useGrades.length == 0;
 
-    var everythingNumerator = [];
-    var everythingDenominator = [];
-    var forStraightNumerator =  [];
-    var forStraightDenominator = [];
-    for(var i = 0; i < useIDs.length; i++) { 
-        forStraightNumerator.push([]);
-        forStraightDenominator.push([]);
-    }
-
     alert(isStraightAverage);
 
+    var numSum = 0;
+    var denomSum = 0;
+    var count = 0;
 
     var grades = document.getElementsByTagName("th");
     for (var i = 0; i < grades.length; i++) {
@@ -59,26 +53,30 @@ function analyzeGrades() {
                             try {
                                 var tbody2 = tbody.childNodes[k].getElementsByTagName("td");
                                 var arr = Array.prototype.slice.call(tbody2);
-                                
                                 var assignmentType = linkProp(arr[1]);
                                 var grade = getGrade(arr[8]);
                                 console.log("GRADE: " + grade);
                                 if(grade.length == 2) { 
-                                    if(isStraightAverage) { 
-                                        forStraightNumerator.push(grade[0]);
-                                        forStraightDenominator.push(grade[1]);
+                                    count++;
+
+                                    if(isStraightAverage) {
+                                        console.log("RIGHT HERE: " + grade);
+                                        numSum += (grade[0]);
+                                        denomSum += (grade[1]);
                                     }
                                     else { 
+                                        console.log("Not straight");
                                         for(var rr = 0; rr < useIDs.length; rr++) { 
                                             if(assignmentType.indexOf(useIDs[rr]) > -1) { 
-                                                everythingNumerator[rr].push(grade[0]);
-                                                everythingDenominator[rr].push(grade[1]);
+                                                numSum += (grade[0]) * parseFloat(useGrades[rr]);
+                                                denomSum += (grade[1]) * parseFloat(useGrades[rr]);
+                                                console.log(numSum + " / " + denomSum);
                                             }
                                         }
                                     }
                                 }
                             } catch (err) {
-                                console.log(err + "?");    
+                                console.log(err.message + "?");    
                             }
                         }
                     }
@@ -87,22 +85,8 @@ function analyzeGrades() {
         }
     }
 
-    if(isStraightAverage) { 
-        var numSum = 0;
-        var denomSum = 0;
+    alert("Grade: " + (((numSum / denomSum)) * 100) + "%");
 
-        for(var i = 0; i < forStraightNumerator.length; i++) { 
-            numSum = forStraightNumerator[i] + numSum;
-            denomSumm = forStraightDenominator[i] + denomSum;
-        }
-
-        console.log(numSum);
-        console.log(denomSum);
-        console.log(forStraightNumerator);
-        console.log(forStraightDenominator);
-
-        alert(numSum / denomSum);
-    }
     return "fine";
 }
 console.log("HTML: " + getHTML()); //Gives you the whole HTML of the page
@@ -129,7 +113,7 @@ function getGrade(obj1) {
     if (denominator.indexOf("nbsp") > -1) {
         return [];
     }
-    return [numerator, denominator];
+    return [parseInt(numerator), parseInt(denominator)];
 }
 
 function linkProp(obj1) {
