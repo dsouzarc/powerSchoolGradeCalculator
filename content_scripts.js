@@ -12,7 +12,6 @@ var allWeights = [];
 var allIDs = [];
 
 function getHTML() {
-
     chrome.storage.sync.get(null, function(items) {
         allNames = items.allNames;
         allWeights = items.allWeights;
@@ -33,7 +32,9 @@ function analyzeGrades() {
     var useIDs = allIDs[classNum];
     var isStraightAverage = useGrades.length == 0;
 
-    alert(isStraightAverage);
+    console.log("USE GRADES: " + useGrades);
+    console.log("USE IDS: " + useIDs);
+    console.log("IS STRAIGHT: " + isStraightAverage);
 
     var numSum = 0;
     var denomSum = 0;
@@ -42,7 +43,6 @@ function analyzeGrades() {
     var grades = document.getElementsByTagName("th");
     for (var i = 0; i < grades.length; i++) {
         if (grades[i].innerHTML == "Score") {
-            console.log("MISSION SUCCESS MOTHER FUCKER");
             var parent2 = grades[i].parentNode.parentNode.parentNode;
 
             for (var j = 0; j < parent2.childNodes.length; j++) {
@@ -68,9 +68,14 @@ function analyzeGrades() {
                                         console.log("Not straight");
                                         for(var rr = 0; rr < useIDs.length; rr++) { 
                                             if(assignmentType.indexOf(useIDs[rr]) > -1) { 
-                                                numSum += (grade[0]) * parseFloat(useGrades[rr]);
-                                                denomSum += (grade[1]) * parseFloat(useGrades[rr]);
+                                                console.log("HH: " + useGrades[rr]);
+                                                console.log((parseInt(grade[1]) * parseFloat(useGrades[rr])) + " YOLO");
+                                                numSum += (parseInt(grade[0]) * parseFloat(useGrades[rr]));
+                                                denomSum += (parseInt(grade[1]) * parseFloat(useGrades[rr]));
                                                 console.log(numSum + " / " + denomSum);
+                                            }
+                                            else { 
+                                                console.log("NO: " + assignmentType);
                                             }
                                         }
                                     }
@@ -85,8 +90,9 @@ function analyzeGrades() {
         }
     }
 
-    alert("Grade: " + (((numSum / denomSum)) * 100) + "%");
-
+    if(numSum != "NaN%") { 
+        alert("Grade: " + (((numSum / denomSum)) * 100) + "%");
+    }
     return "fine";
 }
 console.log("HTML: " + getHTML()); //Gives you the whole HTML of the page
