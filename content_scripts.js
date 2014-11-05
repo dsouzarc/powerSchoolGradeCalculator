@@ -1,6 +1,7 @@
 /** This is responsible for calculating the grades
-and displaying it to the user. 
+and displaying it to the user.
 This page should only be called when viewing the quarter grades for a specific class */
+/*Namely the calculate.js*/
 
 /** Returns the name of the obj */
 function toType(obj) {
@@ -14,19 +15,23 @@ function getText() {
 }
 
 //Class Names (ex. Gym, Math, Science)
-var allNames = []; 
+//Why do we need this? - N
+var allNames = [];
 
 //2D array, weights for all classes (0.3, 0.7 for class1, 0.6, 0.4 for class 2
 var allWeights = [];
 
-//2D array, assignment ids for all classes (HW, classwork, QUIZ/TEST 
+//Can we make sure that this is in sync with the allNames array?
+
+//2D array, assignment ids for all classes (HW, classwork, QUIZ/TEST
 var allIDs = [];
 
 
-//Returns the HTML. THIS IS THE GOOD STUFF. 
+//Returns the HTML. THIS IS THE GOOD STUFF.
 function getHTML() {
 
     //Gets the classes/weights/IDs from Chromse sync
+    //
     chrome.storage.sync.get(null, function(items) {
         allNames = items.allNames;
         allWeights = items.allWeights;
@@ -41,12 +46,12 @@ function analyzeGrades() {
 
     //Finds the index of the class (looks through all classes to see which one this is)
     var classNum = 0;
-    for(var y = 0; y < allNames.length; y++) { 
-        if(window.find(allNames[y])) { 
+    for(var y = 0; y < allNames.length; y++) {
+        if(window.find(allNames[y])) {
             classNum = y;
         }
     }
-    
+
     //Updates variables with the class
     var useGrades = allWeights[classNum];
     var useIDs = allIDs[classNum];
@@ -85,7 +90,7 @@ function analyzeGrades() {
                                 console.log("GRADE: " + grade);
 
                                 //If the grade has two values (means its completed like 90/100, not --/100)
-                                if(grade.length == 2) { 
+                                if(grade.length == 2) {
                                     count++;
 
                                     //If it's a straight average, just add it to numerator and denominator
@@ -96,12 +101,12 @@ function analyzeGrades() {
                                     }
 
                                     //If it's weighted
-                                    else { 
+                                    else {
                                         console.log("Not straight");
-                                        for(var rr = 0; rr < useIDs.length; rr++) { 
+                                        for(var rr = 0; rr < useIDs.length; rr++) {
 
                                             //Look through all the assignment types to find the right type and weight
-                                            if(assignmentType.indexOf(useIDs[rr]) > -1) { 
+                                            if(assignmentType.indexOf(useIDs[rr]) > -1) {
                                                 console.log("HH: " + useGrades[rr]);
                                                 console.log((parseInt(grade[1]) * parseFloat(useGrades[rr])) + " YOLO");
 
@@ -110,14 +115,14 @@ function analyzeGrades() {
                                                 denomSum += (parseInt(grade[1]) * parseFloat(useGrades[rr]));
                                                 console.log(numSum + " / " + denomSum);
                                             }
-                                            else { 
+                                            else {
                                                 console.log("NO: " + assignmentType);
                                             }
                                         }
                                     }
                                 }
                             } catch (err) {
-                                console.log(err.message + "?");    
+                                console.log(err.message + "?");
                             }
                         }
                     }
@@ -127,7 +132,7 @@ function analyzeGrades() {
     }
 
     //Print results
-    if(numSum != "NaN%") { 
+    if(numSum != "NaN%") {
         alert("Grade: " + (((numSum / denomSum)) * 100) + "%");
     }
     return "fine";

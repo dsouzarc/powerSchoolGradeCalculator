@@ -1,4 +1,4 @@
-/** Responsible for saving 
+/** Responsible for saving
 1. Periods
 2. Each period's assignment type
 3. Each period's assignment tyes' weight */
@@ -7,11 +7,17 @@ document.addEventListener('DOMContentLoaded', restore_options);
 
 var counter = 1;
 
+
+var allNames = [];
+var allWeights = [];
+var allIDs = [];
+
+
 /** Show options saved */
 function restore_options() {
-    var allNames = [];
-    var allWeights = [];
-    var allIDs = [];
+    allNames = [];
+    allWeights = [];
+    allIDs = [];
     chrome.storage.sync.get(null, function(items) {
         allNames = items.allNames;
         allWeights = items.allWeights;
@@ -23,18 +29,18 @@ function restore_options() {
 }
 
 /** Called when adding a class */
-function add_class() { 
+function add_class() {
 
     //Only if there are less than 8 classes
-	if(counter <= 8) { 
+	if(counter <= 8) {
 		const classNumber = counter;
 		var numWeights = 0;
 
         //Add the html title of Period X
 		var header = document.createElement("h1");
 		header.setAttribute("name", "header" + classNumber);
-		header.appendChild(document.createTextNode("Period " + classNumber));		
-		document.getElementById("class_div").appendChild(header);		
+		header.appendChild(document.createTextNode("Period " + classNumber));
+		document.getElementById("class_div").appendChild(header);
 
         //Add a label for inputting class title
         var nameLabel = document.createElement("p");
@@ -47,7 +53,7 @@ function add_class() {
         nameTextField.setAttribute("name", classNumber + "nameText");
         nameTextField.setAttribute("Value", "Class " + classNumber);
         document.getElementById("class_div").appendChild(nameTextField);
-		
+
 		var div = document.createElement("div");
 		div.id = "div" + classNumber;
 		document.getElementById("class_div").appendChild(div);
@@ -60,9 +66,9 @@ function add_class() {
 		addWeightButton.id="add_weight" + classNumber;
 		document.getElementById("class_div").appendChild(addWeightButton);
 
-        //When add weight button is clicked 
-		document.getElementById("add_weight" + classNumber).onclick = function() { 
-			if(numWeights >= 5) { 
+        //When add weight button is clicked
+		document.getElementById("add_weight" + classNumber).onclick = function() {
+			if(numWeights >= 5) {
 				return;
 			}
 
@@ -76,7 +82,7 @@ function add_class() {
 			classificationTextField.setAttribute("name", classNumber + "classText" + numWeights);
 			classificationTextField.setAttribute("value", "here" + classNumber);
 
-            //Weight label 
+            //Weight label
 			var weightLabel = document.createElement("p");
 			weightLabel.appendChild(document.createTextNode("Weight as decimal"));
 
@@ -92,17 +98,17 @@ function add_class() {
 			location.appendChild(classificationTextField);
 			location.appendChild(weightLabel);
 			location.appendChild(weightTextField);
-			
+
 			numWeights++;
 		};
 		counter++;
 	}
-}	
+}
 
 /** Saves options to Chrome cloud sync */
 function save_options() {
 	const elements = document.getElementsByTagName('input');
-    
+
     //For holding all classes and their weights/assignment types
     const allNames = [];
     const allWeights = [];
@@ -119,23 +125,23 @@ function save_options() {
 	for(var i = 0; i < elements.length; i++) {
         var input = elements[i];
 		var id = elements[i].name;
-        if(id.indexOf("nameText") > -1) { 
+        if(id.indexOf("nameText") > -1) {
             allNames.push(input.value);
         }
 
         //If we're dealing with a textfield
-        if(input.type == "text") {     
+        if(input.type == "text") {
 
             //If its the same index as the class we're on
-            if(tempClassNum == id.charAt(0)) {  
+            if(tempClassNum == id.charAt(0)) {
 
                 /If its a class weight
-                if(id.indexOf("classWeight") > -1) { 
+                if(id.indexOf("classWeight") > -1) {
                     tempWeights.push(input.value);
                 }
 
                 //Or an assignment type
-                else if(id.indexOf("classText") > -1) { 
+                else if(id.indexOf("classText") > -1) {
                     tempIDs.push(input.value);
                 }
             }
@@ -144,7 +150,7 @@ function save_options() {
             else {
 
                 //Add the temp values to the array for holding all classes
-                var obj = { 
+                var obj = {
                     "classWeight" : tempWeights,
                     "classText" : tempIDs };
                 allClasses.push(obj);
@@ -157,30 +163,30 @@ function save_options() {
                 tempClassNum = id.charAt(0);
 
                 //Add the vals to this new array
-                if(id.indexOf("classWeight") > -1) { 
+                if(id.indexOf("classWeight") > -1) {
                     tempWeights.push(input.value);
                 }
-                else if(id.indexOf("classText") > -1) { 
+                else if(id.indexOf("classText") > -1) {
                     tempIDs.push(input.value);
                 }
              }
 		}
     }
 
-    //Add the last values 
+    //Add the last values
     allWeights.push(tempWeights);
     allIDs.push(tempIDs);
 
     console.log("ALL NAMES: ");
     console.log(allNames);
-    
+
     console.log("ALL WEIGHTS: ");
     console.log(allWeights);
-   
+
     console.log("ALL IDS: ");
     console.log(allIDs);
 
-    //Save results 
+    //Save results
     var vals = {'allWeights' : allWeights, 'allIDs' : allIDs, 'allNames' : allNames};
     chrome.storage.sync.set({'allIDs' :  allIDs});
     chrome.storage.sync.set({'allNames' : allNames});
