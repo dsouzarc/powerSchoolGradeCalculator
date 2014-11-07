@@ -30,7 +30,7 @@ function restore_options() {
 
 /** Called when adding a class */
 function add_class() {
-  
+
 		var header = document.createElement("h1");
 		header.setAttribute("name", "header" + classNumber);
 		header.appendChild(document.createTextNode("Period " + classNumber));
@@ -110,6 +110,8 @@ function save_options() {
     const allClasses = [];
 
     //For holding a single class and its weight
+
+    // At the time of writing, I'm reconfiguring the code to remove this redundancy.
     var tempWeights = [];
 	var tempIDs = [];
 	var tempClassNum = 1;
@@ -129,7 +131,7 @@ function save_options() {
             //If its the same index as the class we're on
             if(tempClassNum == id.charAt(0)) {
 
-                /If its a class weight
+                //If its a class weight
                 if(id.indexOf("classWeight") > -1) {
                     tempWeights.push(input.value);
                 }
