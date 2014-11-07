@@ -30,13 +30,7 @@ function restore_options() {
 
 /** Called when adding a class */
 function add_class() {
-
-    //Only if there are less than 8 classes
-	if(counter <= 8) {
-		const classNumber = counter;
-		var numWeights = 0;
-
-        //Add the html title of Period X
+  
 		var header = document.createElement("h1");
 		header.setAttribute("name", "header" + classNumber);
 		header.appendChild(document.createTextNode("Period " + classNumber));
